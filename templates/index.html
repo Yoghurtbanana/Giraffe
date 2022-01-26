@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>測驗</title>
+</head>
+<body>
+    <p>{{ question }}</p>
+    <form method="post">
+        <input type="radio" id="a" name="options" value="a" />
+        <label for="a">(A) {{ option_a }}</label><br />
+        <img src="{{ url_for('static'), filename='Level01_SQ_00001A.png' }}" /><br />
+        <input type="radio" id="b" name="options" value="b" />
+        <label for="b">(B) {{ option_b }}</label><br />
+        <input type="radio" id="c" name="options" value="c" />
+        <label for="c">(C) {{ option_c }}</label><br />
+        <input type="radio" id="d" name="options" value="d" />
+        <label for="d">(D) {{ option_d }}</label><br />
+
+        <input type="submit" value="確認" />
+    </form>
+    {% for message in get_flashed_messages() %}
+    <p>未選擇答案!</p>
+    {% endfor %}
+</body>
+</html>

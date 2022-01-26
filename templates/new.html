@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scratch Problems</title>
+</head>
+<body>
+    <p>輸入新的題目:</p>
+    <form method="post">
+        <label for="question">問題:</label>
+        <input type="text" name="question" value="{{ request.form['question'] }}" size="100"><br />
+        <label for="option_a">選項A:</label>
+        <input type="text" name="option_a" value="{{ request.form['option_a'] }}" size="100"><br />
+        <label for="option_b">選項B:</label>
+        <input type="text" name="option_b" value="{{ request.form['option_b'] }}" size="100"><br />
+        <label for="option_c">選項C:</label>
+        <input type="text" name="option_c" value="{{ request.form['option_c'] }}" size="100"><br />
+        <label for="option_d">選項D:</label>
+        <input type="text" name="option_d" value="{{ request.form['option_d'] }}" size="100"><br />
+        <input type="submit" />
+    </form>
+</body>
+</html>
