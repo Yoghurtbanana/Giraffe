@@ -11,7 +11,6 @@
     <form method="post">
         <input type="radio" id="a" name="options" value="a" />
         <label for="a">(A) {{ option_a }}</label><br />
-        <img src="{{ url_for('static'), filename='Level01_SQ_00001A.png' }}" /><br />
         <input type="radio" id="b" name="options" value="b" />
         <label for="b">(B) {{ option_b }}</label><br />
         <input type="radio" id="c" name="options" value="c" />
@@ -22,7 +21,7 @@
         <input type="submit" value="確認" />
     </form>
     {% for message in get_flashed_messages() %}
-    <p>未選擇答案!</p>
+    <p>{{ message }}</p>
     {% endfor %}
 </body>
 </html>

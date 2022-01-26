@@ -5,45 +5,43 @@ import openpyxl
 app = Flask(__name__)
 app.secret_key = 'ug@#gbG/n**FGDS'
 
-@app.route('/', methods=['POST', 'GET'])
-def index(question = None, image_question = None, option_a = None, image_a = None, option_b = None, image_b = None, option_c = None, image_c = None, option_d = None, image_d = None):
-    error = None
-    wb = openpyxl.load_workbook('problems.xlsx')
-    problemset = wb.active
-    current_problem = session.get('current_problem')
-    if current_problem is None:
-        current_problem = 1
-        session['current_problem'] = current_problem
+wb = openpyxl.load_workbook('problems.xlsx')
 
-    current_problem = 1
-    question = problemset['C' + str(current_problem + 1)].value
-    image_question = problemset['D' + str(current_problem + 1)].value
-    option_a = problemset['E' + str(current_problem + 1)].value
-    image_a = problemset['F' + str(current_problem + 1)].value
-    option_b = problemset['G' + str(current_problem + 1)].value
-    image_b = problemset['H' + str(current_problem + 1)].value
-    option_c = problemset['I' + str(current_problem + 1)].value
-    image_c = problemset['J' + str(current_problem + 1)].value
-    option_d = problemset['K' + str(current_problem + 1)].value
-    image_d = problemset['L' + str(current_problem + 1)].value
+def get_problem(problem_num):
+    problemset = wb.active
+    problem_dict = {
+        'C': 'question', 'D': 'image_q', 'E': 'option_a', 'F': 'image_a',
+        'G': 'option_b', 'H': 'image_b', 'I': 'option_c', 'J': 'image_c',
+        'K': 'option_d', 'L': 'image_d'
+    }
+    problem = {'problem_num': problem_num}
+    for i in problem_dict:
+        problem[problem_dict[i]] = problemset[f'{i}{problem_num + 1}'].value
+    return problem
+    
+@app.route('/', methods=['POST', 'GET'])
+def index():
+    current_problem_num = session.get('current_problem')
+    if current_problem_num is None:
+        current_problem_num = 1
+        session['current_problem'] = current_problem_num
+    problem = get_problem(current_problem_num)
 
     if request.method == 'POST':
         if 'options' not in request.form:
-            error = '未選擇答案!'
-            flash(error)
+            flash('未選擇答案!')
         else:
             option = request.form['options']
-            session['current_problem'] = current_problem + 1
-            print(current_problem)
-    
+            session['current_problem'] = current_problem_num + 1
+            print(current_problem_num)
     return render_template('index.html', question = question, image_question = image_question,
     option_a = option_a, image_a = image_a, option_b = option_b, image_b = image_b,
-    option_c = option_c, image_c = image_c, option_d = option_d, image_d = image_d,
-    error = error)
+    option_c = option_c, image_c = image_c, option_d = option_d, image_d = image_d)
+    
+    return render_template('index.html')
 
 @app.route('/new', methods=['POST', 'GET'])
 def new():
-    error = None
     if request.method == 'POST':
         question = request.form['question']
         option_a = request.form['option_a']
@@ -53,6 +51,5 @@ def new():
         if question and option_a and option_b and option_c and option_d:
             print('success')
         else:
-            error = '有空格未填入!'
-            flash(error)
-    return render_template('new.html', error = error)
+            flash('有空格未填入!')
+    return render_template('new.html')
