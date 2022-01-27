@@ -1,6 +1,7 @@
 from flask import Flask, redirect
 from flask import render_template, request, flash, redirect, session, url_for
 import openpyxl
+import random
 
 app = Flask(__name__)
 app.secret_key = 'ug@#gbG/n**FGDS'
@@ -9,6 +10,9 @@ wb = openpyxl.load_workbook('problems.xlsx')
 
 def get_problem(problem_num):
     problemset = wb.active
+    if problemset[f'A{problem_num + 1}'].value == None:
+        return None
+    
     problem_dict = {
         'C': 'question', 'D': 'image_q', 'E': 'option_a', 'F': 'image_a',
         'G': 'option_b', 'H': 'image_b', 'I': 'option_c', 'J': 'image_c',
@@ -21,10 +25,10 @@ def get_problem(problem_num):
     
 @app.route('/', methods=['POST', 'GET'])
 def index():
-    current_problem_num = session.get('current_problem')
-    if current_problem_num is None:
-        current_problem_num = 1
-        session['current_problem'] = current_problem_num
+    current_problem_num = session.get('current_problem_num')
+    if current_problem_num == None:
+        current_problem_num = random.randint(1, 15)
+        session['current_problem_num'] = current_problem_num
     problem = get_problem(current_problem_num)
 
     if request.method == 'POST':
@@ -32,7 +36,11 @@ def index():
             flash('未選擇答案!')
         else:
             option = request.form['options']
-            session['current_problem'] = current_problem_num + 1
+            if option == problem['answer']:
+                flash('答案正確！')
+            else:
+                flash('答案錯誤！')
+            session['current_problem_num'] = random.randint(1, 15)
             return redirect(url_for('index'))
             
     return render_template('index.html', question = problem['question'], image_q = problem['image_q'],

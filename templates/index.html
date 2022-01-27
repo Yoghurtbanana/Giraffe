@@ -8,30 +8,40 @@
 </head>
 <body>
     <p>{{ question }}</p>
-    <img src="{{ url_for('static', filename=image_q) if image_q != None else '' }}" />
+    {% if image_q != None %}
+    <img src="{{ url_for('static', filename=image_q) }}" height="100" />
+    {% endif %}
     <form method="post">
-        <input type="radio" id="a" name="options" value="a" />
+        <input type="radio" id="A" name="options" value="A" />
         <label for="a">
             (A) {{ option_a if option_a != None else '' }}
-            <img src="{{ url_for('static', filename=image_a) if image_a != None else '' }}" />
+            {% if image_a != None %}
+            <img src="{{ url_for('static', filename=image_a) }}" height="50" />
+            {% endif %}
         </label><br />
-        <input type="radio" id="b" name="options" value="b" />
+        <input type="radio" id="B" name="options" value="B" />
         <label for="b">
             (B) {{ option_b if option_b != None else '' }}
-            <img src="{{ url_for('static', filename=image_b) if image_b != None else '' }}" />
+            {% if image_b != None %}
+            <img src="{{ url_for('static', filename=image_b) }}" height="50" />
+            {% endif %}
         </label><br />
-        <input type="radio" id="c" name="options" value="c" />
+        <input type="radio" id="C" name="options" value="C" />
         <label for="c">
             (C) {{ option_c if option_c != None else '' }}
-            <img src="{{ url_for('static', filename=image_c) if image_c != None else '' }}" />
+            {% if image_c != None %}
+            <img src="{{ url_for('static', filename=image_c) }}" height="50" />
+            {% endif %}
         </label><br />
-        <input type="radio" id="d" name="options" value="d" />
+        <input type="radio" id="D" name="options" value="D" />
         <label for="d">
             (D) {{ option_d if option_d != None else '' }}
-            <img src="{{ url_for('static', filename=image_d) if image_d != None else '' }}" />
+            {% if image_d != None %}
+            <img src="{{ url_for('static', filename=image_d) }}" height="50" />
+            {% endif %}
         </label><br />
 
-        <input type="submit" value="確認" />
+        <input type="submit" value="確認答案" />
     </form>
     {% for message in get_flashed_messages() %}
     <p>{{ message }}</p>
