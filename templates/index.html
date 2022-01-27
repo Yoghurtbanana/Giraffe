@@ -8,15 +8,28 @@
 </head>
 <body>
     <p>{{ question }}</p>
+    <img src="{{ url_for('static', filename=image_q) if image_q != None else '' }}" />
     <form method="post">
         <input type="radio" id="a" name="options" value="a" />
-        <label for="a">(A) {{ option_a }}</label><br />
+        <label for="a">
+            (A) {{ option_a if option_a != None else '' }}
+            <img src="{{ url_for('static', filename=image_a) if image_a != None else '' }}" />
+        </label><br />
         <input type="radio" id="b" name="options" value="b" />
-        <label for="b">(B) {{ option_b }}</label><br />
+        <label for="b">
+            (B) {{ option_b if option_b != None else '' }}
+            <img src="{{ url_for('static', filename=image_b) if image_b != None else '' }}" />
+        </label><br />
         <input type="radio" id="c" name="options" value="c" />
-        <label for="c">(C) {{ option_c }}</label><br />
+        <label for="c">
+            (C) {{ option_c if option_c != None else '' }}
+            <img src="{{ url_for('static', filename=image_c) if image_c != None else '' }}" />
+        </label><br />
         <input type="radio" id="d" name="options" value="d" />
-        <label for="d">(D) {{ option_d }}</label><br />
+        <label for="d">
+            (D) {{ option_d if option_d != None else '' }}
+            <img src="{{ url_for('static', filename=image_d) if image_d != None else '' }}" />
+        </label><br />
 
         <input type="submit" value="確認" />
     </form>

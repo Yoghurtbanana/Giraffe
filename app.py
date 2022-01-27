@@ -1,5 +1,5 @@
-from email.mime import image
-from flask import Flask, render_template, request, flash, session
+from flask import Flask, redirect
+from flask import render_template, request, flash, redirect, session, url_for
 import openpyxl
 
 app = Flask(__name__)
@@ -12,7 +12,7 @@ def get_problem(problem_num):
     problem_dict = {
         'C': 'question', 'D': 'image_q', 'E': 'option_a', 'F': 'image_a',
         'G': 'option_b', 'H': 'image_b', 'I': 'option_c', 'J': 'image_c',
-        'K': 'option_d', 'L': 'image_d'
+        'K': 'option_d', 'L': 'image_d', 'M': 'answer'
     }
     problem = {'problem_num': problem_num}
     for i in problem_dict:
@@ -33,12 +33,11 @@ def index():
         else:
             option = request.form['options']
             session['current_problem'] = current_problem_num + 1
-            print(current_problem_num)
-    return render_template('index.html', question = question, image_question = image_question,
-    option_a = option_a, image_a = image_a, option_b = option_b, image_b = image_b,
-    option_c = option_c, image_c = image_c, option_d = option_d, image_d = image_d)
-    
-    return render_template('index.html')
+            return redirect(url_for('index'))
+            
+    return render_template('index.html', question = problem['question'], image_q = problem['image_q'],
+    option_a = problem['option_a'], image_a = problem['image_a'], option_b = problem['option_b'], image_b = problem['image_b'],
+    option_c = problem['option_c'], image_c = problem['image_c'], option_d = problem['option_d'], image_d = problem['image_d'])
 
 @app.route('/new', methods=['POST', 'GET'])
 def new():
