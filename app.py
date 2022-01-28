@@ -56,7 +56,7 @@ def new():
         option_c = request.form['option_c']
         option_d = request.form['option_d']
         if question and option_a and option_b and option_c and option_d:
-            print('success')
+            flash('成功！')
         else:
-            flash('有空格未填入!')
+            flash('有空格未填入！')
     return render_template('new.html')
