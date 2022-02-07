@@ -41,7 +41,12 @@
             {% endif %}
         </label><br />
 
+        {% if proceed == True %}
+        <input type="submit" value="下一題" />
+        {% else %}
         <input type="submit" value="確認答案" />
+        <button type="button" disabled>下一題</button>
+        {% endif %}
     </form>
     {% for message in get_flashed_messages() %}
     <p>{{ message }}</p>

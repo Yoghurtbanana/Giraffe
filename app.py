@@ -30,6 +30,7 @@ def index():
         current_problem_num = random.randint(1, 15)
         session['current_problem_num'] = current_problem_num
     problem = get_problem(current_problem_num)
+    proceed = False
 
     if request.method == 'POST':
         if 'options' not in request.form:
@@ -37,26 +38,12 @@ def index():
         else:
             option = request.form['options']
             if option == problem['answer']:
+                proceed = True
+                session['current_problem_num'] = random.randint(1, 15)
                 flash('答案正確！')
             else:
                 flash('答案錯誤！')
-            session['current_problem_num'] = random.randint(1, 15)
-            return redirect(url_for('index'))
-            
+
     return render_template('index.html', question = problem['question'], image_q = problem['image_q'],
     option_a = problem['option_a'], image_a = problem['image_a'], option_b = problem['option_b'], image_b = problem['image_b'],
-    option_c = problem['option_c'], image_c = problem['image_c'], option_d = problem['option_d'], image_d = problem['image_d'])
-
-@app.route('/new', methods=['POST', 'GET'])
-def new():
-    if request.method == 'POST':
-        question = request.form['question']
-        option_a = request.form['option_a']
-        option_b = request.form['option_b']
-        option_c = request.form['option_c']
-        option_d = request.form['option_d']
-        if question and option_a and option_b and option_c and option_d:
-            flash('成功！')
-        else:
-            flash('有空格未填入！')
-    return render_template('new.html')
+    option_c = problem['option_c'], image_c = problem['image_c'], option_d = problem['option_d'], image_d = problem['image_d'], proceed = proceed)
