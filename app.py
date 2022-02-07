@@ -23,7 +23,7 @@ def get_problem(problem_num):
         problem[problem_dict[i]] = problemset[f'{i}{problem_num + 1}'].value
     return problem
     
-@app.route('/', methods=['POST', 'GET'])
+@app.route('/', methods=['GET'])
 def index():
     current_problem_num = session.get('current_problem_num')
     if current_problem_num == None:
@@ -31,8 +31,9 @@ def index():
         session['current_problem_num'] = current_problem_num
     problem = get_problem(current_problem_num)
 
-    if request.method == 'POST':
-        session['current_problem_num'] = random.randint(1, 15)
-        return redirect(url_for('index'))
-
     return render_template('index.html', problem = problem)
+
+@app.route('/next', methods=['GET'])
+def next():
+    session['current_problem_num'] = random.randint(1, 15)
+    return redirect(url_for('index'))
