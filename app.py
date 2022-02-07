@@ -1,5 +1,5 @@
-from flask import Flask, redirect
-from flask import render_template, request, flash, redirect, session, url_for
+from flask import Flask
+from flask import render_template, request, session, redirect, url_for
 import openpyxl
 import random
 
@@ -12,7 +12,7 @@ def get_problem(problem_num):
     problemset = wb.active
     if problemset[f'A{problem_num + 1}'].value == None:
         return None
-    
+
     problem_dict = {
         'C': 'question', 'D': 'image_q', 'E': 'option_a', 'F': 'image_a',
         'G': 'option_b', 'H': 'image_b', 'I': 'option_c', 'J': 'image_c',
@@ -30,20 +30,9 @@ def index():
         current_problem_num = random.randint(1, 15)
         session['current_problem_num'] = current_problem_num
     problem = get_problem(current_problem_num)
-    proceed = False
 
     if request.method == 'POST':
-        if 'options' not in request.form:
-            flash('未選擇答案!')
-        else:
-            option = request.form['options']
-            if option == problem['answer']:
-                proceed = True
-                session['current_problem_num'] = random.randint(1, 15)
-                flash('答案正確！')
-            else:
-                flash('答案錯誤！')
+        session['current_problem_num'] = random.randint(1, 15)
+        return redirect(url_for('index'))
 
-    return render_template('index.html', question = problem['question'], image_q = problem['image_q'],
-    option_a = problem['option_a'], image_a = problem['image_a'], option_b = problem['option_b'], image_b = problem['image_b'],
-    option_c = problem['option_c'], image_c = problem['image_c'], option_d = problem['option_d'], image_d = problem['image_d'], proceed = proceed)
+    return render_template('index.html', problem = problem)
