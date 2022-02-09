@@ -10,14 +10,14 @@
         var answer = "{{ problem['answer'] }}".toLowerCase();
         function checkAnswer(input) {
             if (input == answer) {
-                alert("答案正確");
+                alert("🟢 答案正確");
                 window.location = "/next";
             }
             else if (input == ""){
                 alert("未輸入答案");
             }
             else {
-                alert("答案錯誤")
+                alert("🔴 答案錯誤")
             }
         }
     </script>
