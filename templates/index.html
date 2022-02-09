@@ -64,5 +64,15 @@
             {{ problem['option_d'] if problem['option_d'] != None else '' }}
         </p>
     </div>
+    <div id="detail">
+        <form id="goto" method="get">
+            <label for="problemId">題號:</label>
+            <input type="number" name="problemId" id="problemId" value="{{ problem['problem_num'] }}" min="1" max="1000" />
+            <input type="submit" value="Go" />
+        </form>
+        <div class="button" onclick="window.location='/random';">
+            <p>隨機題目</p>
+        </div>
+    </div>
 </body>
 </html>

@@ -45,3 +45,32 @@ p {
     align-items: center;
     padding: 1rem;
 }
+
+#detail {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    margin: 0.67em 0 0.67em;
+}
+
+#goto {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.button {
+    color: black;
+    background: white;
+    border: 2px solid black;
+    padding: 0.5rem;
+}
+
+.button:hover {
+    color: white;
+    background: black;
+}
