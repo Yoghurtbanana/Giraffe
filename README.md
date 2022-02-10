@@ -1,5 +1,6 @@
 # Scratch題庫測驗
 此應用使用Python，以Flask做為後端，使用openpyxl提取Excel檔內容來製作測驗網頁。
+[GitHub連結](https://github.com/Yoghurtbanana/Giraffe)
 ![demo](demo.png)
 
 ## 安裝
