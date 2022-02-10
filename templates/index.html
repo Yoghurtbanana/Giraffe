@@ -1,78 +1,27 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>測驗</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='index.css') }}">
-    <script type="text/javascript">
-        var answer = "{{ problem['answer'] }}".toLowerCase();
-        function checkAnswer(input) {
-            if (input == answer) {
-                alert("🟢 答案正確");
-                window.location = "/next";
-            }
-            else if (input == ""){
-                alert("未輸入答案");
-            }
-            else {
-                alert("🔴 答案錯誤")
-            }
+{% extends "base.html" %}
+{% block title %}總覽{% endblock %}
+{% block head %}
+<link rel="stylesheet" href="{{ url_for('static', filename='index.css') }}">
+<script type="text/javascript">
+    var answer = "{{ problem['answer'] }}".toLowerCase();
+    function checkAnswer(input) {
+        if (input == answer) {
+            alert("🟢 答案正確");
+            window.location = window.location.href + "/next";
         }
-    </script>
-</head>
-<body>
-    <h1>{{ problem['question'] }}</h1>
-    {% if problem['image_q'] != None %}
-    <img id="image_q" src="{{ url_for('static', filename='images/'+problem['image_q']) }}" height="100" />
-    {% endif %}
-
-    <div class="choice" onclick="checkAnswer('a')">
-        <p class="choice-prefix">A</p>
-        <p class="choice-text">
-            {% if problem['image_a'] != None %}
-            <img src="{{ url_for('static', filename='images/'+problem['image_a']) }}" height="50" />
-            {% endif %}
-            {{ problem['option_a'] if problem['option_a'] != None else '' }}
-        </p>
-    </div>
-    <div class="choice" onclick="checkAnswer('b')">
-        <p class="choice-prefix">B</p>
-        <p class="choice-text">
-            {% if problem['image_b'] != None %}
-            <img src="{{ url_for('static', filename='images/'+problem['image_b']) }}" height="50" />
-            {% endif %}
-            {{ problem['option_b'] if problem['option_b'] != None else '' }}
-        </p>
-    </div>
-    <div class="choice" onclick="checkAnswer('c')">
-        <p class="choice-prefix">C</p>
-        <p class="choice-text">
-            {% if problem['image_c'] != None %}
-            <img src="{{ url_for('static', filename='images/'+problem['image_c']) }}" height="50" />
-            {% endif %}
-            {{ problem['option_c'] if problem['option_c'] != None else '' }}
-        </p>
-    </div>
-    <div class="choice" onclick="checkAnswer('d')">
-        <p class="choice-prefix">D</p>
-        <p class="choice-text">
-            {% if problem['image_d'] != None %}
-            <img src="{{ url_for('static', filename='images/'+problem['image_d']) }}" height="50" />
-            {% endif %}
-            {{ problem['option_d'] if problem['option_d'] != None else '' }}
-        </p>
-    </div>
-    <div id="detail">
-        <form id="goto" method="get">
-            <label for="problemId">題號:</label>
-            <input type="number" name="problemId" id="problemId" value="{{ problem['problem_num'] }}" min="1" max="1000" />
-            <input type="submit" value="Go" />
-        </form>
-        <div class="button" onclick="window.location='/random';">
-            <p>隨機題目</p>
-        </div>
-    </div>
-</body>
-</html>
+        else {
+            alert("🔴 答案錯誤")
+        }
+    }
+</script>
+{% endblock %}
+{% block detail %}
+<form id="goto" method="get">
+    <label for="problemId">題號:</label>
+    <input type="number" name="problemId" id="problemId" value="{{ problem['problem_num'] }}" min="1" max="1000" />
+    <input type="submit" value="Go" />
+</form>
+<div class="button" onclick="window.location='/random';">
+    <p>隨機題目</p>
+</div>
+{% endblock %}

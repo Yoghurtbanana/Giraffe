@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}{% endblock %} - Scratch題庫測驗</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='base.css') }}">
+    {% block head %}{% endblock %}
+</head>
+<body>
+    <header>
+        <div class="button" onclick="window.location='/';">
+            <p>總覽</p>
+        </div>
+        <div class="button" onclick="window.location='/practice';">
+            <p>練習</p>
+        </div>
+    </header>
+    <h1>{{ problem['question'] }}</h1>
+    {% if problem['image_q'] != None %}
+    <img id="image_q" src="{{ url_for('static', filename='images/'+problem['image_q']) }}" height="100" />
+    {% endif %}
+
+    <div class="choice" onclick="checkAnswer('a')">
+        <p class="choice-prefix">A</p>
+        <p class="choice-text">
+            {% if problem['image_a'] != None %}
+            <img src="{{ url_for('static', filename='images/'+problem['image_a']) }}" height="50" />
+            {% endif %}
+            {{ problem['option_a'] if problem['option_a'] != None else '' }}
+        </p>
+    </div>
+    <div class="choice" onclick="checkAnswer('b')">
+        <p class="choice-prefix">B</p>
+        <p class="choice-text">
+            {% if problem['image_b'] != None %}
+            <img src="{{ url_for('static', filename='images/'+problem['image_b']) }}" height="50" />
+            {% endif %}
+            {{ problem['option_b'] if problem['option_b'] != None else '' }}
+        </p>
+    </div>
+    <div class="choice" onclick="checkAnswer('c')">
+        <p class="choice-prefix">C</p>
+        <p class="choice-text">
+            {% if problem['image_c'] != None %}
+            <img src="{{ url_for('static', filename='images/'+problem['image_c']) }}" height="50" />
+            {% endif %}
+            {{ problem['option_c'] if problem['option_c'] != None else '' }}
+        </p>
+    </div>
+    <div class="choice" onclick="checkAnswer('d')">
+        <p class="choice-prefix">D</p>
+        <p class="choice-text">
+            {% if problem['image_d'] != None %}
+            <img src="{{ url_for('static', filename='images/'+problem['image_d']) }}" height="50" />
+            {% endif %}
+            {{ problem['option_d'] if problem['option_d'] != None else '' }}
+        </p>
+    </div>
+    <div id="detail">
+        {% block detail %}{% endblock %}
+    </div>
+</body>
+</html>

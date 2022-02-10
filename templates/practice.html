@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block title %}練習{% endblock %}
+{% block head %}
+<link rel="stylesheet" href="{{ url_for('static', filename='practice.css') }}">
+<script type="text/javascript">
+    var answer = "{{ problem['answer'] }}".toLowerCase();
+    function checkAnswer(input) {
+        if (input == answer) {
+            alert("🟢 答案正確");
+        }
+        else {
+            alert("🔴 答案錯誤")
+        }
+        document.getElementById("detail").style.display = "flex";
+    }
+</script>
+{% endblock %}
+{% block detail %}
+{% if problem['image_s'] != None %}
+<img src="{{ url_for('static', filename='images/'+problem['image_s']) }}" style="width: 25rem" />
+{% endif %}
+{% if problem['solution'] != None %}
+<p style="width: 25rem">{{ problem['solution'] }}</p>
+{% endif %}
+<div class="button" onclick="window.location = window.location.href + '/next';">
+    <p>下一題</p>
+</div>
+{% endblock %}

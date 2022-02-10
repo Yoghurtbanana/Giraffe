@@ -1,4 +1,4 @@
-# 題庫隨機測驗
+# Scratch題庫測驗
 此應用使用Python，以Flask做為後端，使用openpyxl提取Excel檔內容來製作測驗網頁。
 ![demo](demo.png)
 
