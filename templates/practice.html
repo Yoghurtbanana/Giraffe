@@ -17,10 +17,10 @@
 {% endblock %}
 {% block detail %}
 {% if problem['image_s'] != None %}
-<img src="{{ url_for('static', filename='images/'+problem['image_s']) }}" style="width: 25rem" />
+<img src="{{ url_for('static', filename='images/'+problem['image_s']) }}" style="max-width: 25rem" />
 {% endif %}
 {% if problem['solution'] != None %}
-<p style="width: 25rem">{{ problem['solution'] }}</p>
+<p style="max-width: 25rem">{{ problem['solution'] }}</p>
 {% endif %}
 <div class="button" onclick="window.location = window.location.href + '/next';">
     <p>下一題</p>
